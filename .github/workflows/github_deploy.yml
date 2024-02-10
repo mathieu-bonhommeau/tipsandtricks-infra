@@ -37,6 +37,6 @@ jobs:
                     source /home/${USERNAME}/.profile &&
                     cd /www/tipsandtricks/infra &&
                     docker compose stop &&
-                    docker compose build --no-cache &&
+                    docker compose build --no-cache --force-recreate &&
                     docker compose up -d
                   "
