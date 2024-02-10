@@ -10,12 +10,17 @@ services:
         ports:
             - "80:80"
             - "443:443"
-        expose:
-            - "3000"
         volumes:
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
         command: /bin/sh /usr/local/bin/init.sh
+
+    webapp:
+        image: node:18.13.0-alpine
+        ports:
+            - "3000:3000"
+        volumes:
+            - "../webapp:/usr/app/webapp"
 
     db:
         image: postgres:latest
