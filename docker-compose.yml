@@ -6,13 +6,16 @@ services:
         image: nginx:latest
         depends_on:
             db:
-                condition: service_healthy
+              condition: service_healthy
         ports:
             - "80:80"
         volumes:
-            - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+            - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
+            - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
+            - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
         networks:
             - tipsandtricks
+        command: /bin/sh /usr/local/bin/init.sh
 
     db:
         image: postgres:latest
@@ -22,12 +25,17 @@ services:
             POSTGRES_DB: '${PGDB}'
             PGDATA: /db/postgres
         ports:
-            - "5433:5432"
+            - "5432:5432"
         command: postgres -c 'max_connections=1000'
         networks:
             - tipsandtricks
         volumes:
             - ./data/postgresql:/var/lib/postgresql/db
+        healthcheck:
+            test: [ "CMD", "psql", "-U", "matanna", "-d", "tipsandtricks", "-c", "SELECT 1;" ]
+            interval: 5s
+            timeout: 1m
+            retries: 15
 
 networks:
     tipsandtricks:
