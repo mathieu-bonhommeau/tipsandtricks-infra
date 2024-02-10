@@ -11,7 +11,6 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
         command: /bin/sh /usr/local/bin/init.sh
