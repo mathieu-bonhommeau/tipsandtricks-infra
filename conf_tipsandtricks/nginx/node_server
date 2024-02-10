@@ -1,0 +1,32 @@
+server {
+    server_name api.tips-and-tricks.eu;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        # proxy_ssl_server_name on;
+        # proxy_ssl_verify_depth 2;
+        # add_header 'Access-Control-Allow-Origin' 'https://tips-and-tricks.eu' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+        add_header 'Access-Control-Allow-Headers' 'X-Requested-With,Accept,Content-Type, Origin' always;
+    }
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/api.tips-and-tricks.eu/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/api.tips-and-tricks.eu/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = api.tips-and-tricks.eu) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name api.tips-and-tricks.eu;
+    listen 80;
+    return 404; # managed by Certbot
+
+
+}
