@@ -21,7 +21,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - "../webapp:/usr/app/webapp"
+            - "../webapp:/app/webapp"
         command: npm run restart-prod
 
     db:
