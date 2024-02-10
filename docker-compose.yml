@@ -16,11 +16,13 @@ services:
         command: /bin/sh /usr/local/bin/init.sh
 
     webapp:
-        image: node:18.13.0-alpine
+        build: "./docker/webapp/Dockerfile"
+        container_name: "webapp_react"
         ports:
             - "3000:3000"
         volumes:
             - "../webapp:/usr/app/webapp"
+        command: npm run restart-prod
 
     db:
         image: postgres:latest
