@@ -16,6 +16,7 @@ services:
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
         networks:
             - tipsandtricks
+        network_mode: host
         command: /bin/sh /usr/local/bin/init.sh
 
     db:
