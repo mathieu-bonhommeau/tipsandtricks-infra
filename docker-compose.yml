@@ -16,7 +16,7 @@ services:
         command: /bin/sh /usr/local/bin/init.sh
 
     webapp:
-        build: "./docker/webapp/Dockerfile"
+        build: "./docker/webapp/"
         container_name: "webapp_react"
         ports:
             - "3000:3000"
