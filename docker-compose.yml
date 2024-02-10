@@ -14,8 +14,6 @@ services:
             - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
-        networks:
-            - tipsandtricks
         network_mode: host
         command: /bin/sh /usr/local/bin/init.sh
 
@@ -29,8 +27,6 @@ services:
         ports:
             - "5432:5432"
         command: postgres -c 'max_connections=1000'
-        networks:
-            - tipsandtricks
         volumes:
             - ./data/postgresql:/var/lib/postgresql/db
         healthcheck:
@@ -38,8 +34,4 @@ services:
             interval: 5s
             timeout: 1m
             retries: 15
-
-networks:
-    tipsandtricks:
-        driver: bridge
 
