@@ -36,7 +36,7 @@ jobs:
                   ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST_DNS} "
                     source /home/${USERNAME}/.profile &&
                     cd /www/tipsandtricks/infra &&
-                    docker compose stop &&
+                    docker compose down &&
                     docker compose build &&
                     docker compose up -d
                   "
