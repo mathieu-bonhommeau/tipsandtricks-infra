@@ -11,18 +11,8 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
-            - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
-            - ./certbot/www/:/var/www/certbot/:ro
-        network_mode: host
         command: /bin/sh /usr/local/bin/init.sh
-
-    certbot:
-        image: certbot/certbot:latest
-        volumes:
-            - ./certbot/www/:/var/www/certbot/:rw
-            - ./certbot/conf/:/etc/letsencrypt/:rw
 
     db:
         image: postgres:latest
