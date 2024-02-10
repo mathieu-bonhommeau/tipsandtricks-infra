@@ -14,8 +14,6 @@ services:
             - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
-            - "../api:/usr/share/nginx/html/api"
-            - "../webapp:/usr/share/nginx/html/webapp"
             - ./certbot/www/:/var/www/certbot/:ro
         network_mode: host
         command: /bin/sh /usr/local/bin/init.sh
