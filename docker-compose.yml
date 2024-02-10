@@ -14,6 +14,8 @@ services:
             - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
             - "./docker/nginx/init.sh:/usr/local/bin/init.sh"
+            - "../api:/var/www/html/api"
+            - "../webapp:/var/www/html/webapp"
         network_mode: host
         command: /bin/sh /usr/local/bin/init.sh
 
