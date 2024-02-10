@@ -2,13 +2,14 @@ version: "3"
 
 services:
 
-    web:
+    reverse-proxy:
         image: nginx:latest
         depends_on:
             db:
               condition: service_healthy
         ports:
             - "80:80"
+            - "443:443"
         volumes:
             - "./docker/nginx/node_server.conf:/etc/nginx/sites-available/node_server.conf"
             - "./docker/nginx/webapp.conf:/etc/nginx/sites-available/webapp.conf"
