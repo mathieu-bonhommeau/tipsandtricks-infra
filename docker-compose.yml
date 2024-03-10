@@ -16,13 +16,12 @@ services:
         command: /bin/sh /usr/local/bin/init.sh
 
     webapp:
-        build: "./docker/webapp/"
-        container_name: "webapp_react"
+        build:
+            context: .
+            dockerfile: docker/webapp/Dockerfile
+        container_name: tipsandtricks_webapp
         ports:
             - "3000:3000"
-        volumes:
-            - "../webapp:/usr/src/app/webapp"
-        command: npm run restart-prod
 
     db:
         image: postgres:latest
@@ -37,7 +36,7 @@ services:
         volumes:
             - ./data/postgresql:/var/lib/postgresql/db
         healthcheck:
-            test: [ "CMD", "psql", "-U", "matanna", "-d", "tipsandtricks", "-c", "SELECT 1;" ]
+            test: [ "CMD", "psql", "-U", "ttuser", "-d", "tipsandtricks", "-c", "SELECT 1;" ]
             interval: 5s
             timeout: 1m
             retries: 15
